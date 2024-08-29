@@ -20,13 +20,13 @@
     apt update && apt upgrade -y
     ## Install svxlink-server  and dependencies ##
     echo -e "${BLUE}#### Installing svxlink-server #### ${WHITE}" | tee -a /var/log/install.log
-    apt install -y curl svxlink-server qtel apache2 apache2-bin apache2-data apache2-utils php8.2 python3-serial sqlite3 libssl-dev php8.2-sqlite3 toilet libgpiod-dev --fix-missing -y
+    apt install -y curl svxlink-server svxreflector qtel apache2 apache2-bin apache2-data apache2-utils php8.2 python3-serial sqlite3 libssl-dev php8.2-sqlite3 toilet --fix-missing -y
     echo -e "${BLUE}#### Installing locales #### ${WHITE}" | tee -a /var/log/install.log
     
     ## Must kill the remotetrx.service to avoid a problem later ##
     systemctl stop remotetrx.service
     systemctl disable remotetrx.service
     echo -e "${RED} #### remotetrx.service stopped #### ${NORMAL}" | tee -a  /var/log/install.log 
+    systemctl disable svxlink
     ## installing locales.##
     systemctl enable svxreflector --now
-    
