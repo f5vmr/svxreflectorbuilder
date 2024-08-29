@@ -4,21 +4,21 @@
 function dash_install {
     ## install the dashboard
     cd /var/www/ || exit 1
-    sudo rm -r html
-    sudo git clone https://github.com/f5vmr/SVXLink-Dash-V2 html
+    rm -r html
+    git clone https://github.com/f5vmr/SVXLink-Dash-V2 html
     ## change ownership of the dashboard
-    sudo chown -R svxlink:svxlink html
+    chown -R svxlink:svxlink html
     ## change permissions of the dashboard
-    sudo chmod -R 775 html
+    chmod -R 775 html
     ## change Apache2 permissions
     cd /etc/apache2/ || exit 1
-    sudo sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=svxlink/g' envvars
-    sudo sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=svxlink/g' envvars
+    sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=svxlink/g' envvars
+    sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=svxlink/g' envvars
     cd /usr/lib/systemd/system/ || exit 1
-    sudo sed -i 's/PrivateTmp=true/PrivateTmp=false/g' apache2.service
+    sed -i 's/PrivateTmp=true/PrivateTmp=false/g' apache2.service
     ## restart Apache2
-    sudo systemctl daemon-reload
-    sudo systemctl restart apache2.service
+    systemctl daemon-reload
+    systemctl restart apache2.service
     ## Dashboard Permissions
 
     # Prompt for the dashboard username using whiptail
@@ -46,8 +46,8 @@ function dash_install {
     # Update the config file with the provided username and password
     CONFIG_FILE="/var/www/html/include/config.inc.php"
     if [ -f "$CONFIG_FILE" ]; then
-        sudo sed -i "s/define(\"PHP_AUTH_USER\", \".*\");/define(\"PHP_AUTH_USER\", \"$DASHBOARD_USER\");/" "$CONFIG_FILE"
-        sudo sed -i "s/define(\"PHP_AUTH_PW\", \".*\");/define(\"PHP_AUTH_PW\", \"$DASHBOARD_PASSWORD\");/" "$CONFIG_FILE"
+        sed -i "s/define(\"PHP_AUTH_USER\", \".*\");/define(\"PHP_AUTH_USER\", \"$DASHBOARD_USER\");/" "$CONFIG_FILE"
+        sed -i "s/define(\"PHP_AUTH_PW\", \".*\");/define(\"PHP_AUTH_PW\", \"$DASHBOARD_PASSWORD\");/" "$CONFIG_FILE"
         echo "The config file $CONFIG_FILE has been updated with the new username and password."
     else
         echo "Error: Config file $CONFIG_FILE does not exist. Exiting."
@@ -55,7 +55,7 @@ function dash_install {
     fi
 
     # Change ownership of all files in /var/www/html 
-    sudo find /var/www/html -exec sudo chown svxlink:svxlink {} +
+    find /var/www/html -exec chown svxlink:svxlink {} +
 
     # Inform the user that the ownership change was successful
     echo "Ownership of files in /var/www/html has been changed to svxlink:svxlink, except for the script itself."
@@ -89,13 +89,13 @@ fi
 EOF
 
         # Make the cleanup.sh script executable
-        sudo chmod +x "$CLEANUP_SCRIPT"
+        chmod +x "$CLEANUP_SCRIPT"
         echo "Created and made $CLEANUP_SCRIPT executable."
     fi
 
-    # Check and add the cleanup.sh script to the sudo crontab if not already present
+    # Check and add the cleanup.sh script to the crontab if not already present
     CRON_JOB="01 00 * * * /home/pi/scripts/cleanup.sh"
-    ( sudo crontab -l | grep -q "$CRON_JOB" ) || ( sudo crontab -l; echo "$CRON_JOB" ) | sudo crontab -
+    ( crontab -l | grep -q "$CRON_JOB" ) || ( crontab -l; echo "$CRON_JOB" ) | crontab -
 
     # Inform the user that the crontab entry has been added if it was not present
     echo "Ensured that the crontab entry for $CLEANUP_SCRIPT exists."

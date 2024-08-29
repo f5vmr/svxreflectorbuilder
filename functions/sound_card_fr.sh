@@ -94,15 +94,15 @@ echo "Variable assigned: $sound_card_variable"
     if [[ "$card" = true ]] 
     then
     echo "Ok, c'est parti - Changement des règles udev pour la carte son USB"
-               sudo cp /home/pi/svxlinkbuilder/addons/cm-108.rules /etc/udev/rules.d/
-               sudo udevadm control --reload-rules
-               sudo udevadm trigger
+               cp /home/pi/svxlinkbuilder/addons/cm-108.rules /etc/udev/rules.d/
+               udevadm control --reload-rules
+               udevadm trigger
                 
     else
     echo "ok, donc, je ne fais pas de changements"           
     fi               
 fi
-    echo -e "$(date)" "${GREEN}Mis à jour audio, carte-son factice incluse pour Darkice complètée.${NORMAL}" | sudo tee -a /var/log/install.log
+    echo -e "$(date)" "${GREEN}Mis à jour audio, carte-son factice incluse pour Darkice complètée.${NORMAL}" | tee -a /var/log/install.log
 plughw_setting="0"
 channel_setting="0"
 }

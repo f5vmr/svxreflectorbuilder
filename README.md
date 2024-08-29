@@ -35,7 +35,7 @@ The next step will be to open an internet browser such as 'Chrome' or 'Firefox' 
 
 <p>You will need to understand the svxreflector.conf file and how to make adjustments for New and current users. In any case you may need to refer to the svxlink.org main page, or svxlink amateur radio users page on facebook, or contact me. For further information also consult the svxlink pages on g4nab.co.uk. In the terminal, type 'man svxreflector.conf' and the on-board documentation will be displayed.</p>
 
-<p>To stop svxlink running type in the terminal <b>sudo systemctl stop svxreflector</b> and to restart it type <b>sudo systemctl restart svxlink.service</b></p>
+<p>To stop svxlink running type in the terminal <b>systemctl stop svxreflector</b> and to restart it type <b>systemctl restart svxlink.service</b></p>
 
 <p>73 - Chris G4NAB </p>
 

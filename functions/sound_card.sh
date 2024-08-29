@@ -94,15 +94,15 @@ echo "Variable assigned: $sound_card_variable"
     if [[ "$card" = true ]] 
     then
     echo "Ok, Let's add the updated rules"
-               sudo cp /home/pi/svxlinkbuilder/addons/cm-108.rules /etc/udev/rules.d/
-               sudo udevadm control --reload-rules
-               sudo udevadm trigger
+               cp /home/pi/svxlinkbuilder/addons/cm-108.rules /etc/udev/rules.d/
+               udevadm control --reload-rules
+               udevadm trigger
                 
     else
     echo "ok, then I will make no other changes"           
     fi 
 fi
-    echo -e "$(date)" "${GREEN}Audio Updates including Dummy Sound Card for Darkice complete${NORMAL}" | sudo tee -a /var/log/install.log
+    echo -e "$(date)" "${GREEN}Audio Updates including Dummy Sound Card for Darkice complete${NORMAL}" | tee -a /var/log/install.log
 plughw_setting="0"
 channel_setting="0"
 }

@@ -32,27 +32,27 @@
 
 <p>Une fois terminé, éjectez la carte, installez-la dans le Raspberry Pi et allumez-la. Connectez vous en SSH puis Entrez l'utilisateur <b>pi</b> et votre mot de passe.</p>
 <h2>Les utilisateurs d'une carte usvxcard et de la carte udracard de Juan, F8ASB doivent suivre cette étape supplémentaire avant la construction. Les autres utilisateurs passent au paragraphe suivant.</h2>
-<p>Exécutez d'abord sudo apt update && sudo apt upgrade -y avant de continuer, puis sudo apt install -y git</p>
-<p>En utilisant le sudo raspb-config dans le terminal, assurez-vous que l'interface série est activés.</p>
+<p>Exécutez d'abord apt update && apt upgrade -y avant de continuer, puis apt install -y git</p>
+<p>En utilisant le raspb-config dans le terminal, assurez-vous que l'interface série est activés.</p>
 <p>Redémarrez le système, puis reconnectez-vous en tant qu'utilisateur <b>pi</b> et exécutez les commandes suivantes dans le terminal :</p>
-<p>sudo nano /boot/firmware/config.txt</p>
+<p>nano /boot/firmware/config.txt</p>
 <p>Ajoutez les lignes suivantes à la fin du fichier :</p>
 <p>dtoverlay=pi3-miniuart-bt</p>
 <p>enable_uart=1</p>
-<p>sudo reboot</p>
+<p>reboot</p>
 <p>connectez-vous à nouveau en tant qu'utilisateur <b>pi</b> et exécutez les commandes suivantes dans le terminal :</p>
 <p>git clone https://github.com/f5vmr/seeed-voicecard</p>
 <p>cd seeed-voicecard</p>
-<p>sudo ./install.sh</p>
+<p>./install.sh</p>
 <p>Cela installera les pilotes audio pour la carte usvxcard et la carte udracard.</p>
 <p>Vous pouvez maintenant passer à l'étape suivante.</p>
 <p>Une étape supplémentaire consistera à programmer la carte SA818, pendant l'installation.</p>
 <h2>La construction</h2>
 <b>Ne pas mettre à jour/mettre à jour le système à cet étape.</b>
 <p>Ce script installera également une carte son factice pour l'utilisation de Darkice et Icecast2.</p>
-<p>Étape 1 : <b>sudo apt-get install -y git</b> car sans cela, vous ne pouvez pas télécharger depuis GitHub.</p>
+<p>Étape 1 : <b>apt-get install -y git</b> car sans cela, vous ne pouvez pas télécharger depuis GitHub.</p>
 
-<p>Étape 2 : <b>sudo git clone https://github.com/f5vmr/svxlinkbuilder.git</b> .</p>
+<p>Étape 2 : <b>git clone https://github.com/f5vmr/svxlinkbuilder.git</b> .</p>
 <p>Étape 3 : <b>./svxlinkbuilder/preinstall.sh</b> </p>
 <p>Vous n'avez besoin d'aucune intervention à ce stade, jusqu'à ce que le système s'arrête pour redémarrer. Cela prendra un certain temps - 20 à 30 minutes.</p>
 <p>Étape 4 : <b>./svxlinkbuilder/install.sh</b> </p>
@@ -85,14 +85,14 @@
 <h2> Dépannage </h2>
 
 <p>Vous devrez comprendre la structure du fichier svxlink.conf et savoir comment effectuer des ajustements pour le fonctionnement Simplex ou Répéteur. Dans tous les cas, vous devrez peut-être vous référer à la page principale de svxlink.org, ou à la page des utilisateurs de radio amateur svxlink sur Facebook, ou me contacter. Pour plus d’informations, consultez également les pages svxlink sur g4nab.co.uk. Dans le terminal, tapez 'man svxlink.conf' et la documentation intégrée s'affichera.</p>
-<p>Pour arrêter l'exécution de svxlink, tapez dans le terminal <b>sudo systemctl stop svxlink.service</b> et pour le redémarrer, tapez <b>sudo systemctl restart svxlink.service</b> Vous pouvez également le faire si vous y êtes autorisé dans le tableau de bord dans le menu POWER. Vous n'avez à aucun moment besoin de redémarrer le système.</p>
+<p>Pour arrêter l'exécution de svxlink, tapez dans le terminal <b>systemctl stop svxlink.service</b> et pour le redémarrer, tapez <b>systemctl restart svxlink.service</b> Vous pouvez également le faire si vous y êtes autorisé dans le tableau de bord dans le menu POWER. Vous n'avez à aucun moment besoin de redémarrer le système.</p>
 
 <p>Si vous souhaitez modifier les fichiers Svxlink.conf, EchoLink, MetarInfo et NodeInfo, vous pouvez le faire, si autorisé, depuis le tableau de bord. L'enregistrement des modifications redémarre immédiatement le svxlink avec les nouveaux paramètres, les nouvelles modifications s'affichant après un clic sur le bouton dans le tableau de bord.</p>
 <p>Soyez prudent lors de l'édition, car modifier la structure peut entraîner le mauvais fonctionnement du point d'accès. Cependant, une copie de la dernière configuration fonctionnelle peut être trouvée dans le dossier /var/www/html/backups avec une heure et une date.</p>
 <p>Pour obtenir des informations sur node_info.json, accédez à un navigateur PC et entrez <b>http://svxportal-uk.ddns.net:81</b> où vous trouverez un tableau de bord.</p>
 <p>Cliquez sur <b>S'inscrire</b> en haut pour compléter les informations. Ces informations sont conservées uniquement pour vous permettre de passer à l'étape suivante. Connectez-vous avec les informations que vous venez de fournir, cliquez sur <b>Mes Stations</b>, puis cliquez sur <b>Générer node_info.json</f></b>
 <p>En complétant toutes les informations, <b>en ignorant</b> toute référence à CTCSS pour le moment, cela générera un fichier appelé node_info.json. Enregistrez-le dans un emplacement de votre ordinateur. Vous pourrez le copier et le coller ultérieurement dans le fichier du point d'accès.</p>
-<p>Ouvrez le terminal du Raspberry Pi et tapez <b>cd /etc/svxlink</b> et validez par la touche Entrée. Tapez ensuite <b>sudo nano node_info.json</b> et modifiez les informations avec le contenu du fichier que vous venez d'enregistrer sur votre PC. Vous pouvez ouvrir le fichier avec un éditeur de texte ou un bloc-notes.</p>
+<p>Ouvrez le terminal du Raspberry Pi et tapez <b>cd /etc/svxlink</b> et validez par la touche Entrée. Tapez ensuite <b>nano node_info.json</b> et modifiez les informations avec le contenu du fichier que vous venez d'enregistrer sur votre PC. Vous pouvez ouvrir le fichier avec un éditeur de texte ou un bloc-notes.</p>
 <p>Dans le Raspberry Terminal ou dans le Dashboard si vous y avez ouvert le fichier NodeInfo, et supprimez tout le contenu. Accédez au Bloc-notes ou à l'éditeur de texte, sélectionnez-y tout le texte et copiez-le (cntrl-c). Mettez en surbrillance le terminal (ou la fenêtre du tableau de bord) et collez (ctrl-v). </p>
 <p>Lorsque l'édition est terminée, tapez <b>ctrl-o</b> et revenez au clavier du terminal suivi de <b>ctrl-x</b>.</p>
 <p>Dans le tableau de bord, utilisez simplement le bouton Enregistrer. Les nouvelles informations seront enregistrées dans le fichier du point d'accès.</p>
@@ -121,11 +121,11 @@
 <p>Le tableau de bord audio ne fonctionne pas pour le moment.</p>
 <p>Le module EchoLink peut être ajouté via le tableau de bord, dans le configurateur EchoLink tout d'abord, puis ajoutez ModuleEchoLink à la ligne MODULES= dans la section [SimplexLogic] ou [RepeaterLogic] du configurateur Svxlink.</p>
 <p>Amixer peut être réglé à l'aide du tableau de bord, et est plus efficace qu'alsamixer dans le terminal. Sélectionnez les paramètres recommandés dans la fenêtre.</p>
-<p>Cette fonctionnalité ne fonctionne pas avec uSvxCard de F8ASB. Vous devez aller dans le terminal et taper sudo alsamixer. Réduisez tous les paramètres à environ 60 %.</p>
+<p>Cette fonctionnalité ne fonctionne pas avec uSvxCard de F8ASB. Vous devez aller dans le terminal et taper alsamixer. Réduisez tous les paramètres à environ 60 %.</p>
 <p>Enfin, pour les utilisateurs de la uDraCard de F8ASB pour réglez le module SA818.</p>
 <p>Vous devriez maintenant avoir activé l'interface USB, qui dans le menu Raspberry Pi, devrait être /dev/ttyS0.</p>
-<p>sudo git clone https://github.com/0x9900/sa818</p>
+<p>git clone https://github.com/0x9900/sa818</p>
 <p>cd sa818</p>
-<p>sudo python3 setup.py install</p>
+<p>python3 setup.py install</p>
 <p>sa818 --port /dev/ttyS0 radio --frequency 430.125 --squelch 2 --bw 0</p>
 <p>Cette commande sert simplement à communiquer avec le port série pour régler la radio sur la fréquence 430,125 MHz avec le niveau de squelch 2 et la bande passante 12,5 kHz. Bien sûr, remplacez votre propre fréquence. pour une assistance complète sur le SA818, tapez SA818 -h pour toutes les options. </p>
