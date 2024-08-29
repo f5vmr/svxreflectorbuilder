@@ -122,7 +122,7 @@ chmod 0440 "$SUDOERS_FILE"
  # clear
 	echo -e "$(date)" "${YELLOW} #### Changing Log file suffix #### ${NORMAL}" | tee -a  /var/log/install.log
 
- 	sed -i '/^LOGFILE=/ { /[^.log]$/ s/$/.log/ }' /etc/default/svxlink
+ 	sed -i '/^LOGFILE=/ { /[^.log]$/ s/$/.log/ }' /etc/default/svxreflector
 
 	#### INSTALLING DASHBOARD ####
  # clear

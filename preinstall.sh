@@ -29,4 +29,6 @@
     echo -e "${RED} #### remotetrx.service stopped #### ${NORMAL}" | tee -a  /var/log/install.log 
     systemctl disable svxlink
     ## installing locales.##
+    sed -i '/^LOGFILE=/ { /[^.log]$/ s/$/.log/ }' /etc/default/svxreflector
     systemctl enable svxreflector --now
+    
