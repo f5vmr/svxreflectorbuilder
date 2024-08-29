@@ -1,8 +1,8 @@
 # SvxReflectorBuilder
-<h1>Menu build for Raspberry Pi - Repeater or Hotspot node. EchoLink MetarInfo and SVXReflector Options</h1>
+<h1>Menu build for a server-based SvxReflector</h1>
 <h2> Pour l'instruction en Français, README_FR.md. Para instrucción en español README_ES.md.</h2>
 <h3>Introduction</h3>
-<p>This SVXReflector build provides a SvxReflector build, too which you can connect your svxlink nodes.</b>. It is for installation on a server that is expected to run 24/7 and provide connectivity for the community. If you are in the United Kingdom, please do not build another reflector, as the svxportal-uk.ddns.net:81 already provides unrestricted connection already.</p>
+<p>This SVXReflector build provides a service, to which you can connect your svxlink nodes.</b>. It is for installation on a server that is expected to run 24/7 and provide connectivity for the community. If you are in the United Kingdom, please do not build another reflector, as the svxportal-uk.ddns.net:81 already provides unrestricted connection already.</p>
 <p>A connection to the svxreflector provides connectivity using pseudo-talkgroups to other nodes and repeaters on the network. for more information select this link http://svxportal-uk.ddns.net:81.</p>
 <p>This build has no dashboard, and everything is run headlessly, however if you want a dashboard such as that on the UK portal, then go to github.com/sa2blv/svxportal for all the relevant information.</p>
 <p>Because there is no sound component for the svxreflector, the installation is extremely rapid, and is ready for immediate deployment after running the first and only instruction. However you will require to become bash shell script efficient to manage the program.
