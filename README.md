@@ -1,85 +1,37 @@
-# SvxlinkBuilder
+# SvxReflectorBuilder
 <h1>Menu build for Raspberry Pi - Repeater or Hotspot node. EchoLink MetarInfo and SVXReflector Options</h1>
 <h2> Pour l'instruction en Français, README_FR.md. Para instrucción en español README_ES.md.</h2>
 <h3>Introduction</h3>
-<p>This SVXLink build presently contains a connection only to the <b>svxportal-uk (SvxReflector)</b> only . If this changes then so will this introduction. You can leave it without, and install an svxreflector later through the Dashboard.</p>
-<p>The connection to the svxreflector provides connectivity using pseudo-talkgroups to other nodes and repeaters on the network. for more information select this link http://svxportal-uk.ddns.net:81.</p>
-<p>This build now contains an automatic three minute timeout for RF users. This is to educate users to keep their speech from being too long.</p>
-<p>This timeout mechanism does not block the user whilst speaking, but superimposes a series of pip-tones with the emission, that are terminated, when the speaker releases the PTT. The squelch mechanism detects this, and sends "Time-out" verbally on the transmission, before issuing a "K" for continued use of the repeater.</p>
-<h3>For users of the SA818 device</h3>
-<p>There will be opportunity to select the programming of it during the installation progress. This is particularly important for the users of the uSvxCard with uDraCard from F8ASB and for the Guru-Rf Hotspot. For users of these devices, extra care and instructions may be required. Watch for them below.</p>
+<p>This SVXReflector build provides a SvxReflector build, too which you can connect your svxlink nodes.</b>. It is for installation on a server that is expected to run 24/7 and provide connectivity for the community. If you are in the United Kingdom, please do not build another reflector, as the svxportal-uk.ddns.net:81 already provides unrestricted connection already.</p>
+<p>A connection to the svxreflector provides connectivity using pseudo-talkgroups to other nodes and repeaters on the network. for more information select this link http://svxportal-uk.ddns.net:81.</p>
+<p>This build has no dashboard, and everything is run headlessly, however if you want a dashboard such as that on the UK portal, then go to github.com/sa2blv/svxportal for all the relevant information.</p>
+<p>Because there is no sound component for the svxreflector, the installation is extremely rapid, and is ready for immediate deployment after running the first and only instruction. However you will require to become bash shell script efficient to manage the program.
 <h3>Your First Steps</h3>
-<p><b>The Requirements:</b> A Raspberry Pi of any mark, a USB Soundcard, and an interface card (or a modified USB Soundcard and no interface). One or two transceivers. Experience with Shell Commands will help, but is not essential.</p>
+<p><b>The Requirements:</b> A debian server, installed as Debian 12 Bookworm. This can be a Raspberry Pi, however for efficiency, you should consider a virtual machine installed on a hypervisor, with daily backup service. ProxMox is what I use, and is very efficient. Follow Proxmox advice on creating a server image with connectivity.</p>
 <p>If you are suitably experienced, you will be able to modify the installation once it is complete. But this system will provide you with a working system, and you can then modify it to your own needs should you want to.</p>
-<p>There are very few other raspberry images that work succesfully for this type of build, where there is a potential for using the application in several directions. An image is fixed, leaving you with a lot of puzzling. This is not an image, but a menu-driven easy build.</p>
-<p>This New SVXLINKBUILDER uses an apt install, especially created to avoid the long and tedious approach of a compilation.</p>
+<p>There are very few other images that work succesfully for this type of build, where there is a potential for using the application in several directions. An image is fixed, leaving you with a lot of puzzling. This is not an image, but a very easy build.</p>
+<p>This New SVXREFLECTORKBUILDER uses an apt install, especially created to avoid the long and tedious approach of a compilation.</p>
 
-<h2>Always use Raspberry OS Bookworm Lite (Debian 12) 32 Bit then you won't go wrong.</h2>
-<p>Using Raspberry Pi Imager, select the Raspberry Pi OS (32-bit) Lite image. But ensure your user name is 'pi' and nothing else.</p>
-<p>The Imager will also allow you to configure your password, and WiFi if required. Ensure that the tab permitting SSH is enabled.</p>
-<h3>Before running the software</h3>
-<p>There are a number of available interface boards that have a variety of uses, either as a hotspot or a repeater, or even a fill-in receiver/transceiver for an existing SVXLink repeater. The settings in this build are for a homebrew interface board using GPIOD 23/17/8 for the Receive COS and GPIOD 24/18/7 for the PTT controller, or alternative a fully modified CM-108 that can use 'udev' and drive the PTT and COS from the modification components. There is an also intermediate version for the CM-108 where only the transmit modification has been done that will you use 'udev' for the transmit, and give you options for the receive GPIOD 23/17/8. There is also an option for your own GPIO port selection.</p>
-<p>When using the GPIO and GPIOD Pins, an earth pin is also require, so using this combination for example, pins 14,16 and 18 are all adjacent and ideally placed for these functions. Pin 14 is the Earth, Pin 16 is GPIO 23 and Pin 18 is GPIO 24.</p>
-<p>For a second set of transceivers, you can consider GPIO 17 and 18 as COS & PTT for those.</p> 
-<p>A copy of the design for an interface can be found on g4nab.co.uk. There is also a link to a web page showing the modification instructions for a CM-108 USB Sound Card.</p>
-<h2>The programming of the SDCard</h2>
+<h2>THE INSTALLATION</h2>
 
-<p>As discussed, start with a download of <b>Raspberry OS Bookworm Lite</b> from RaspberryPi.org. Use a 8 or 16 GB MicroSD Card and transfer the image to the card, best using the <b>Raspberry Pi Image builder</b> from the same source.</p>
-<p><b> You MUST make the user 'pi' - PLEASE DO NOT DEVIATE from this advice, as you will get issues. </b> You can however use your own password. There are versions of Raspberry Pi Imager for all operating systems. It allows for full WiFi usage. Do not forget the SSH tab in 'Services'.</p> 
-<p>In the first box <b>device</b> select 'No Filtering'</p>
-<p>In the second box <b>Choose OS</b> select 'Raspberry Pi OS (Other)' then 'Raspberry Pi Os 32 Bit' under which you will see 'Debian Bookworm with no desktop environment'. Select this</p>
-<p>Now select <b>Choose Storage</b> where you will be invited to select the sdcard.</p>
-<p>In <b>Next</b> Complete the 'edit' box, but <b>pi</b> must be the user. If this is not correct, then your install will fail. You can have any password you like.</p>
-<p>You can set your Wi-Fi settings here if your wish.</p>
-<b>Always check the SSH box on the second tab of the next box, otherwise that will also cause your installation to fail.</b>  you can use a password or set a key if you wish.</p> 
-
-<p>Once complete, eject the card and install it in the raspberry pi and power it up. Enter the user <b>pi</b> and your password.</p>
-<h2>Users of a usvxcard and the udracard from Juan Hagen F8ASB need to follow this additional step before the build. Other users skip to the next paragraph.</h2>
-<p>First perform sudo apt update && sudo apt upgrade -y before proceeding, then sudo apt install -y git</p>
-<p>Using the sudo raspb-config in the terminal, ensure that the serial interface is first enabled.</p>
-<p>Reboot the system and then log back in as the user <b>pi</b> and run the following commands in the terminal:</p>
-<p>sudo nano /boot/firmware/config.txt</p>
-<p>Add the following lines to the end of the file:</p>
-<p>dtoverlay=pi3-miniuart-bt</p>
-<p>enable_uart=1</p>
-<p>sudo reboot</p>
-<p>login again as the user <b>pi</b> and run the following commands in the terminal:</p>
-<p>git clone https://github.com/f5vmr/seeed-voicecard</p>
-<p>cd seeed-voicecard</p>
-<p>sudo ./install.sh</p>
-<p>This will install the audio drivers for the usvxcard and udracard.</p>
-<p>You can now proceed to the next step.</p>
-<p>There will be a further step to program the SA818 card, during the install process.</p>
+<pFor this install, the user name is root with the password used for the installation of the operating system.</p> 
+<p>
 <h2>The Build</h2>
-<b>Do Not update/upgrade the system at this stage. SA818 card users ignore this of course, you have done it already.</b>
-<p>This script will install a dummy sound card for the use of Darkice and Icecast2.</p> 
-<p>Step 1: <b>sudo apt install -y git</b> as without this you cannot download from the GitHub.</p>  
+<b>As in most infestations, carry out apt update && apt upgrade -y to prepare for the software install.</b>
 
-<p>Step 2: <b>sudo git clone https://github.com/f5vmr/svxlinkbuilder.git</b> .</p>
-<p>Step 3: <b>At the prompt type ./svxlinkbuilder/preinstall.sh</b> </p>
-<p>You need no input at this stage, until the system shutsdown for a reboot. It will take a while to complete, about 20 minutes.</p>
-<p>Step 4: <b>Login again and at the prompt type ./svxlinkbuilder/install.sh</b> </p>
-<p>Here you will be required to respond to a number of questions in the menu.</p>
+<p>Step 1: <b>apt install -y git</b> as without this you cannot download from the GitHub.</p>  
+
+<p>Step 2: <b>git clone https://github.com/f5vmr/svxreflectorbuilder.git</b> that will take a matter of only seconds.</p>
+<p>Step 3: <b>At the prompt type ./svxreflectorbuilder/preinstall.sh</b> </p>
+<p>You need no input at this stage, until the system reports ready. It will take a while to complete, about 10 minutes.</p>
+<p>Step 4: </p>
 
 <p>They will guide you through the installation, all the way to run-time.</p>
 <b>You will need to know before you begin</b> 
-<p>1. The status of your transceiver, whether the PTT and COS are Active High or Active Low.</p>
-<p>2. The status and type of your USB soundcard, modified, partly modified or unmodified. With a fully modified usb soundcard, there is no reason that would prevent this installation on another Linux based computer running Debian 12. It has to be Debian 12, or some of the features will fail.</p>
-<p>3. Decide <b>The callsign of your node</b>.<p>Do not use additional symbols or numbers at this stage. The callsign should be of standard notation.</p>
-<p>4. If you have decided to install EchoLink, then have ready your registration information.</p> 
-<p>5. If you wish to use ModuleMetarInfo, the Airport Weather application, then read about the ICAO codes, and discover the major airports around you. It will not work for airports that do not provide a weather service in real time.</p>
-<p>6. If you wish to explore the ModulePropagationMonitor, then this can be installed later.</p>
+
 <b>Remember note everything down before you proceed.</b>
 <p>Everything else will be constructed for you</p>
 <h2>Beginning the install</h2>
-<p>The script will compile the running configuration as you proceed. It can only be run once, due to the nature of the program.</p>
-<p>Allow yourself an uninterupted period of 30 minutes, to answer the questions put to you, and the accompanying install.</p>
-<p>A Raspberry Pi 3 or 4 will take less time, and a Raspberry Pi zero possibly slightly longer. However the Raspberry Pi Zero will present a challenge due to the lack of an external USB socket.</p> 
-<p>I have NOT included the installation of the waveshare sound system, if you are using a Pi-Hat interface.</p> 
-<p>Hopefully there should be no reported error. I have just completed a build on a raspberry pi 3A from card format to working node in about 25 minutes, with no errors.</p>
-<p>For the American User, the en_US Voice files will be pulled if you select 'English - USA' from the menu.</p>
-<p>I hope that there will be someone out there that can add to the code for Portuguese.</p>
-<p>During the compilation, you will be notified of the Active IP Address of your node. Make a note of it. You will need it to proceed.</p>
 
 <p>At the end of the compilation, the system will ready to use. You may now 'exit' the terminal.</p>
 
